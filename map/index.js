@@ -26,7 +26,7 @@ window.initMap = async function() {
     }
     
     const points = [];
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 10000; i++) {
       const { lat, lng } = getRandomLatLng();
       const weight = getSmoothWeight();
       const point = {
@@ -45,15 +45,17 @@ window.initMap = async function() {
     });
 
     const gradient = [
-        "rgba(0, 255, 0, 0.15)",
-        "rgba(255, 165, 0, 0.35)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(255, 100, 0, 0.4)",
+        "rgba(255, 165, 0, 0.65)",
+        "rgba(255, 210, 0, 0.85)",
         "rgba(255, 0, 0, 1)",
-        "rgba(139, 0, 0, 1)"
+        
     ];
 
     var heatmap = new google.maps.visualization.HeatmapLayer({
       data: points,
-      radius: 1,
+      radius: 0.3,
       maxIntensity: 100,
       dissipating: false,
       gradient: gradient
