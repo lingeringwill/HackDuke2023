@@ -26,7 +26,7 @@ window.initMap = async function() {
     }
     
     const points = [];
-    for (let i = 0; i < 10000; i++) {
+    for (let i = 0; i < 30000; i++) {
       const { lat, lng } = getRandomLatLng();
       const weight = getSmoothWeight();
       const point = {
@@ -37,11 +37,13 @@ window.initMap = async function() {
     }
 
     // bigger weight = more red
-    var alabama = new google.maps.LatLng(32.806671, -86.791130);
+    var US = new google.maps.LatLng(37, -95);
   
     map = new Map(document.getElementById("map"), {
-      center: alabama,
-      zoom: 8
+      center: US,
+      zoom: 5,
+      disableDefaultUI: true,
+      fullscreenControl: true,
     });
 
     const gradient = [
@@ -50,7 +52,6 @@ window.initMap = async function() {
         "rgba(255, 165, 0, 0.65)",
         "rgba(255, 210, 0, 0.85)",
         "rgba(255, 0, 0, 1)",
-        
     ];
 
     var heatmap = new google.maps.visualization.HeatmapLayer({
@@ -59,6 +60,7 @@ window.initMap = async function() {
       maxIntensity: 100,
       dissipating: false,
       gradient: gradient
+      
     });
 
     heatmap.setMap(map);
