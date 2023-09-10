@@ -139,9 +139,12 @@ window.initMap = async function() {
 
     const gradient = [
         "rgba(0, 0, 0, 0)",
-        "rgba(255, 165, 0, 0.0)",
-        "rgba(255, 210, 0, 0.4)",  
-        "rgba(255, 80, 0, 1)", 
+        "rgba(60, 179, 113, 0.1)",
+        "rgba(60, 215, 113, 0.2)",
+        "rgba(32, 194, 60, 0.3)",
+        "rgba(255, 210, 0, 0.5  )",
+        "rgba(255, 165, 0, 0.85)",
+        "rgba(255, 80, 0, 1)"
     ];
 
     current = new google.maps.MVCArray([]);
@@ -152,8 +155,8 @@ window.initMap = async function() {
 
     let heatmap = new google.maps.visualization.HeatmapLayer({
       data: current,
-      radius: 0.55,
-      maxIntensity: 100,
+      radius: 0.58,
+      maxIntensity: 120,
       dissipating: false,
       gradient: gradient,
     });
