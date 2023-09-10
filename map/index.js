@@ -114,15 +114,15 @@ window.initMap = async function() {
         let top = 49.384297
         let left = -124.731077
       
-        for (let i = 2023; i <= 2049; i++) {
+        for (let i = 2049; i >= 2023; i--) {
             points.push(new Array());
 
             for (let j = 0; j < json[i].length; j++) {           
-                let long = top - j * 1 // !
+                let long = top - (j * 0.5) // !
                 for (let k = 0; k < json[i][j].length; k++) {
-                    let lat = k * 1 + left; // !
+                    let lat = (k * 0.5) + left; // !
                     let obj = json[i][j][k];
-                    points[i - 2023].push({location: new google.maps.LatLng(long, lat), weight: obj});
+                    points[2049 - i].push({location: new google.maps.LatLng(long, lat), weight: obj});
                 }
             }
         } 
@@ -139,10 +139,9 @@ window.initMap = async function() {
 
     const gradient = [
         "rgba(0, 0, 0, 0)",
-        "rgba(255, 100, 0, 0.4)",
-        "rgba(255, 165, 0, 0.65)",
-        "rgba(255, 210, 0, 0.85)",
-        "rgba(255, 0, 0, 1)",
+        "rgba(255, 165, 0, 0.0)",
+        "rgba(255, 210, 0, 0.4)",  
+        "rgba(255, 80, 0, 1)", 
     ];
 
     current = new google.maps.MVCArray([]);
@@ -153,10 +152,10 @@ window.initMap = async function() {
 
     let heatmap = new google.maps.visualization.HeatmapLayer({
       data: current,
-      radius: 1,
+      radius: 0.55,
       maxIntensity: 100,
       dissipating: false,
-      gradient: gradient
+      gradient: gradient,
     });
 
     heatmap.setMap(map);
