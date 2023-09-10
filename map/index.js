@@ -87,7 +87,7 @@ function createRight(map) {
   controlButton.type = 'button';  
 
   controlButton.addEventListener('click', () => {
-      if (index != 27) {
+      if (index != 26) {
         index++;
         current.clear();
 
@@ -114,7 +114,7 @@ window.initMap = async function() {
         let top = 49.384297
         let left = -124.731077
       
-        for (let i = 2023; i <= 2050; i++) {
+        for (let i = 2023; i <= 2049; i++) {
             points.push(new Array());
 
             for (let j = 0; j < json[i].length; j++) {           
