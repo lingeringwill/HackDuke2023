@@ -88,13 +88,23 @@ window.initMap = async function() {
       .then((json) => loadPoints(json))
 
     async function loadPoints(json) {
-        for (let i = 0; i < json.length; i++) {
+        let top =    49.384297
+        let right = -66.888932
+        let bottom = 24.546337
+        let left = -124.731077
+      
+        for (let i = 2023; i <= 2050; i++) {
             points.push(new Array());
-            for (let j = 0; j < json[i].length; j++) {
-                let obj = json[i][j];
-                points[i].push({location: new google.maps.LatLng(obj["location"]["lat"], obj["location"]["lng"]), weight: obj["weight"]}) // finish this
+
+            for (let j = 0; j < json[i].length; j++) {           
+                let long = top - j * 1 // !
+                for (let k = 0; k < json[i][j].length; k++) {
+                    let lat = k * 1 + left; // !
+                    let obj = json[i][j][k];
+                    points[i - 2023].push({location: new google.maps.LatLng(lat, long), weight: obj});
+                }
             }
-        }
+        } 
     }     
 
     // bigger weight = more red
@@ -120,8 +130,6 @@ window.initMap = async function() {
     for (let i = 0; i < points[index].length; i++) {
       current.push(points[index][i]);
     }
-
-    console.log(current);
 
     let heatmap = new google.maps.visualization.HeatmapLayer({
       data: current,
