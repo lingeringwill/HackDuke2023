@@ -1,40 +1,26 @@
 let map;
+let points = [];
 
-// Create the script tag, set the appropriate attributes
 var script = document.createElement('script');
 script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyApBGLyOG3tTnJsCjj1_vDeimFp72_xF0Y&libraries=visualization&callback=initMap';
 script.async = true;
 
-// Attach your callback function to the `window` object
 window.initMap = async function() {
     const { Map } = await google.maps.importLibrary("maps");
 
-    function getRandomLatLng() {
-      const minLat = 24.396308; 
-      const maxLat = 49.384358;
-      const minLng = -125.000000; 
-      const maxLng = -66.934570;
-      
-      const lat = Math.random() * (maxLat - minLat) + minLat;
-      const lng = Math.random() * (maxLng - minLng) + minLng;
-    
-      return { lat, lng };
-    }
-    
-    function getSmoothWeight() {
-      return Math.random() * 100;
-    }
-    
-    const points = [];
-    for (let i = 0; i < 30000; i++) {
-      const { lat, lng } = getRandomLatLng();
-      const weight = getSmoothWeight();
-      const point = {
-        location: new google.maps.LatLng(lat, lng),
-        weight: weight.toFixed(6)
-      };
-      points.push(point);
-    }
+    await fetch("points.json")
+      .then((response) => response.json())
+      .then((json) => loadPoints(json))
+
+    async function loadPoints(json) {
+        for (let i = 0; i < json.length; i++) {
+            points.push(new Array());
+            for (let j = 0; j < json[i].length; j++) {
+                let obj = json[i][j];
+                points[i].push({location: new google.maps.LatLng(obj["location"]["lat"], obj["location"]["lng"]), weight: obj["weight"]}) // finish this
+            }
+        }
+    }     
 
     // bigger weight = more red
     var US = new google.maps.LatLng(37, -95);
@@ -55,17 +41,15 @@ window.initMap = async function() {
     ];
 
     var heatmap = new google.maps.visualization.HeatmapLayer({
-      data: points,
+      data: points[0],
       radius: 0.3,
       maxIntensity: 100,
       dissipating: false,
       gradient: gradient
-      
     });
 
     heatmap.setMap(map);
 };
 
-// Append the 'script' element to 'head'
 document.head.appendChild(script);
       
