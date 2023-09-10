@@ -2,10 +2,33 @@ let map;
 let index = 0;
 let points = [];
 let current;
+let year;
 
 var script = document.createElement('script');
 script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyApBGLyOG3tTnJsCjj1_vDeimFp72_xF0Y&libraries=visualization&callback=initMap';
 script.async = true;
+
+function createYear(map) {
+  year = document.createElement('button');
+
+  year.style.backgroundColor = '#fff';
+  year.style.border = '2px solid #fff';
+  year.style.borderRadius = '3px';
+  year.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  year.style.color = 'rgb(25,25,25)';
+  year.style.cursor = 'pointer';
+  year.style.fontFamily = 'Roboto,Arial,sans-serif';
+  year.style.fontSize = '16px';
+  year.style.lineHeight = '38px';
+  year.style.margin = '8px 10px 22px';
+  year.style.padding = '0 5px';
+  year.style.textAlign = 'center';
+
+  year.textContent = 2023 - index;
+  year.title = 'Click to decrement year';
+  year.type = 'button';  
+  return year;
+}
 
 function createLeft(map) {
   const controlButton = document.createElement('button');
@@ -19,7 +42,7 @@ function createLeft(map) {
   controlButton.style.fontFamily = 'Roboto,Arial,sans-serif';
   controlButton.style.fontSize = '16px';
   controlButton.style.lineHeight = '38px';
-  controlButton.style.margin = '8px 30px 22px';
+  controlButton.style.margin = '8px 10px 22px';
   controlButton.style.padding = '0 5px';
   controlButton.style.textAlign = 'center';
 
@@ -36,7 +59,7 @@ function createLeft(map) {
             current.push(points[index][i]);
         }
 
-        console.log(current);
+        year.textContent = 2023 + index; 
       }
   });
 
@@ -55,7 +78,7 @@ function createRight(map) {
   controlButton.style.fontFamily = 'Roboto,Arial,sans-serif';
   controlButton.style.fontSize = '16px';
   controlButton.style.lineHeight = '38px';
-  controlButton.style.margin = '8px 0 22px';
+  controlButton.style.margin = '8px 10px 22px';
   controlButton.style.padding = '0 5px';
   controlButton.style.textAlign = 'center';
 
@@ -72,7 +95,7 @@ function createRight(map) {
             current.push(points[index][i]);
         }
 
-        console.log(current);
+        year.textContent = 2023 + index;
       }
   });
 
@@ -143,7 +166,9 @@ window.initMap = async function() {
     const controlDiv = document.createElement('div');
     const leftControl = createLeft(map);
     const rightControl = createRight(map);
+    const yearControl = createYear(map);
     controlDiv.appendChild(leftControl);
+    controlDiv.appendChild(yearControl);
     controlDiv.appendChild(rightControl);
 
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(controlDiv);
