@@ -33,7 +33,7 @@ function createLeft(map) {
         current.clear();
 
         for (let i = 0; i < points[index].length; i++) {
-          current.push(points[index][i]);
+            current.push(points[index][i]);
         }
 
         console.log(current);
@@ -69,7 +69,7 @@ function createRight(map) {
         current.clear();
 
         for (let i = 0; i < points[index].length; i++) {
-          current.push(points[index][i]);
+            current.push(points[index][i]);
         }
 
         console.log(current);
@@ -101,13 +101,12 @@ window.initMap = async function() {
                 for (let k = 0; k < json[i][j].length; k++) {
                     let lat = k * 1 + left; // !
                     let obj = json[i][j][k];
-                    points[i - 2023].push({location: new google.maps.LatLng(lat, long), weight: obj});
+                    points[i - 2023].push({location: new google.maps.LatLng(long, lat), weight: obj});
                 }
             }
         } 
     }     
 
-    // bigger weight = more red
     var US = new google.maps.LatLng(37, -95);
   
     map = new Map(document.getElementById("map"), {
@@ -128,12 +127,12 @@ window.initMap = async function() {
     current = new google.maps.MVCArray([]);
     
     for (let i = 0; i < points[index].length; i++) {
-      current.push(points[index][i]);
+        current.push(points[index][i]);
     }
 
     let heatmap = new google.maps.visualization.HeatmapLayer({
       data: current,
-      radius: 0.3,
+      radius: 1,
       maxIntensity: 100,
       dissipating: false,
       gradient: gradient
