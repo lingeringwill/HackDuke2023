@@ -111,9 +111,7 @@ window.initMap = async function() {
       .then((json) => loadPoints(json))
 
     async function loadPoints(json) {
-        let top =    49.384297
-        let right = -66.888932
-        let bottom = 24.546337
+        let top = 49.384297
         let left = -124.731077
       
         for (let i = 2023; i <= 2050; i++) {
